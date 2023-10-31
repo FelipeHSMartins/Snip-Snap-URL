@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snip Snap URL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="main" class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="px-4 py-5 my-5 text-center">
+            <div class="d-inline-flex mb-5">
+                <img class="dance-anim d-block mb-1 me-1 d-none d-sm-block" src="/images/scizzor.svg" alt="scizzor icon" height="85">
+                <h1 class="title-bg my-2 px-3 py-1 display-1"><span class="word-anim">Snip</span> <span class="word-anim">Snap</span> <span class="word-anim">URL</span></h1>
+                <img class="dance-anim d-block mb-1 ms-1 d-none d-sm-block" src="/images/scizzor.svg" alt="scizzor icon" height="85">
+            </div>
+            <div class="col-lg-6 mx-auto">
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <form action="/shorten" method="post">
+                        <div class="d-inline-flex flex-column flex-md-row justify-content-center">
+                            <div class="d-flex flex-column justify-content-center">
+                                <input class="ogURL url-box form-control mb-2 text-wrap" autocomplete="off" name="ogURL" type="url" placeholder="<%= insertPhrase %>">
+                            <% if (!locals.reURL) {  %>
+                                <input class="reURL url-box form-control text-wrap" type="url" placeholder="<%= appearPhrase %>" disabled>
+                            <% } else {  %>
+                                <span onclick="copyURL()"><input id="reURL" class="reURL url-box form-control text-wrap" type="url" value="<%= reURL %>" placeholder="Click here to copy the link! 📝"></span>
+                                <div id="alert" class="alert alert-light" role="alert">
+                                    <%= copiedPhrase %>
+                                </div>
+                            <% }  %>
+                            </div>
+                            <div>
+                                <input class="pink-btn fs-3 py-5 px-3 ms-3" type="submit" value="Snip Snap!">
+                            </div>
+                        </div>
+                        <p class="mt-5">Powered by CleanUri ©</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+    let alert = document.getElementById("alert");
+    function copyURL() {
+        let reURL = document.getElementById("reURL");
+
+        // For mobile
+        reURL.select();
+        reURL.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(reURL.value);
+        alert.classList.add("display-alert");
+    }
+
+</script>
+</html>
